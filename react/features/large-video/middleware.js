@@ -52,6 +52,7 @@ MiddlewareRegistry.register(store => next => action => {
     case PIN_PARTICIPANT:
     case TRACK_ADDED:
     case TRACK_REMOVED:
+        // TODO : Swetank - Check
         store.dispatch(selectParticipantInLargeVideo());
         break;
 

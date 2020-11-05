@@ -236,10 +236,17 @@ export function getPinnedParticipant(stateful: Object | Function) {
  * @returns {Participant[]}
  */
 function _getAllParticipants(stateful) {
-    return (
+    const participants = (
         Array.isArray(stateful)
             ? stateful
             : toState(stateful)['features/base/participants'] || []);
+
+    // return participants
+    const localParticipant = participants.find(p => p.local);
+    if(!localParticipant) return []
+    var arrayWithOnlyLocal = new Array(1);
+    arrayWithOnlyLocal[0] = localParticipant
+    return arrayWithOnlyLocal
 }
 
 /**

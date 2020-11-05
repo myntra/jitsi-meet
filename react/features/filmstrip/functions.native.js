@@ -15,6 +15,6 @@ import { toState } from '../base/redux';
 export function isFilmstripVisible(stateful: Object | Function) {
     const state = toState(stateful);
     const { length: participantCount } = state['features/base/participants'];
-
+    // TODO : Swetank - Need to change here
     return participantCount > 1;
 }
