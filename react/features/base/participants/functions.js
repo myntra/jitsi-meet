@@ -236,10 +236,17 @@ export function getPinnedParticipant(stateful: Object | Function) {
  * @returns {Participant[]}
  */
 function _getAllParticipants(stateful) {
-    return (
+    const participants = (
         Array.isArray(stateful)
             ? stateful
             : toState(stateful)['features/base/participants'] || []);
+
+
+    const localParticipant = participants.find(p => p.local);
+    if(!localParticipant) return []
+    var arrayWithOnlyLocal = new Array(1);
+    arrayWithOnlyLocal[0] = localParticipant
+    return arrayWithOnlyLocal
 }
 
 /**
@@ -328,42 +335,43 @@ export function isLocalParticipantModerator(
  * @returns {boolean}
  */
 export function shouldRenderParticipantVideo(stateful: Object | Function, id: string) {
-    const state = toState(stateful);
-    const participant = getParticipantById(state, id);
+    return false;
+    // const state = toState(stateful);
+    // const participant = getParticipantById(state, id);
 
-    if (!participant) {
-        return false;
-    }
+    // if (!participant) {
+    //     return false;
+    // }
 
-    /* First check if we have an unmuted video track. */
-    const videoTrack
-        = getTrackByMediaTypeAndParticipant(state['features/base/tracks'], MEDIA_TYPE.VIDEO, id);
+    // /* First check if we have an unmuted video track. */
+    // const videoTrack
+    //     = getTrackByMediaTypeAndParticipant(state['features/base/tracks'], MEDIA_TYPE.VIDEO, id);
 
-    if (!shouldRenderVideoTrack(videoTrack, /* waitForVideoStarted */ false)) {
-        return false;
-    }
+    // if (!shouldRenderVideoTrack(videoTrack, /* waitForVideoStarted */ false)) {
+    //     return false;
+    // }
 
-    /* Then check if the participant connection is active. */
-    const connectionStatus = participant.connectionStatus || JitsiParticipantConnectionStatus.ACTIVE;
+    // /* Then check if the participant connection is active. */
+    // const connectionStatus = participant.connectionStatus || JitsiParticipantConnectionStatus.ACTIVE;
 
-    if (connectionStatus !== JitsiParticipantConnectionStatus.ACTIVE) {
-        return false;
-    }
+    // if (connectionStatus !== JitsiParticipantConnectionStatus.ACTIVE) {
+    //     return false;
+    // }
 
-    /* Then check if audio-only mode is not active. */
-    const audioOnly = state['features/base/audio-only'].enabled;
+    // /* Then check if audio-only mode is not active. */
+    // const audioOnly = state['features/base/audio-only'].enabled;
 
-    if (!audioOnly) {
-        return true;
-    }
+    // if (!audioOnly) {
+    //     return true;
+    // }
 
-    /* Last, check if the participant is sharing their screen and they are on stage. */
-    const screenShares = state['features/video-layout'].screenShares || [];
-    const largeVideoParticipantId = state['features/large-video'].participantId;
-    const participantIsInLargeVideoWithScreen
-        = participant.id === largeVideoParticipantId && screenShares.includes(participant.id);
+    // /* Last, check if the participant is sharing their screen and they are on stage. */
+    // const screenShares = state['features/video-layout'].screenShares || [];
+    // const largeVideoParticipantId = state['features/large-video'].participantId;
+    // const participantIsInLargeVideoWithScreen
+    //     = participant.id === largeVideoParticipantId && screenShares.includes(participant.id);
 
-    return participantIsInLargeVideoWithScreen;
+    // return participantIsInLargeVideoWithScreen;
 }
 
 /**
