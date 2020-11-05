@@ -234,7 +234,7 @@ class Conference extends AbstractConference<Props, *> {
             _aspectRatio,
             _connecting,
             _filmstripVisible,
-            _largeVideoParticipantId,
+            _largeVideoParticipantId_,
             _reducedUI,
             _shouldDisplayTileView,
             _toolboxVisible
@@ -243,9 +243,13 @@ class Conference extends AbstractConference<Props, *> {
         const applyGradientStretching
             = _filmstripVisible && _aspectRatio === ASPECT_RATIO_NARROW && !_shouldDisplayTileView;
 
+        const _largeVideoParticipantId = ''
         if (_reducedUI) {
             return this._renderContentForReducedUi();
         }
+
+        console.log('testinggirish-', this.props)
+
 
         return (
             <>
@@ -293,7 +297,7 @@ class Conference extends AbstractConference<Props, *> {
                             applyGradientStretching ? styles.gradientStretchBottom : undefined
                         ] } />}
 
-                    <Labels />
+                    {/* <Labels /> */}
 
                     <Captions onPress = { this._onClick } />
 
@@ -301,12 +305,12 @@ class Conference extends AbstractConference<Props, *> {
                         <DisplayNameLabel participantId = { _largeVideoParticipantId } />
                     </Container> }
 
-                    <LonelyMeetingExperience />
+                    {/* <LonelyMeetingExperience /> */}
 
                     {/*
                       * The Toolbox is in a stacking layer below the Filmstrip.
                       */}
-                    <Toolbox />
+                    {/* <Toolbox /> */}
 
                     {/*
                       * The Filmstrip is in a stacking layer above the
@@ -320,19 +324,19 @@ class Conference extends AbstractConference<Props, *> {
                     }
                 </SafeAreaView>
 
-                <SafeAreaView
+                {/* <SafeAreaView
                     pointerEvents = 'box-none'
                     style = { styles.navBarSafeView }>
                     <NavigationBar />
                     { this._renderNotificationsContainer() }
                     <KnockingParticipantList />
-                </SafeAreaView>
+                </SafeAreaView> */}
 
                 <TestConnectionInfo />
 
-                { this._renderConferenceNotification() }
+                {/* { this._renderConferenceNotification() } */}
 
-                { this._renderConferenceModals() }
+                {/* { this._renderConferenceModals() } */}
             </>
         );
     }
