@@ -117,49 +117,56 @@ function _electLastVisibleRemoteVideo(tracks) {
  * @returns {(string|undefined)}
  */
 function _electParticipantInLargeVideo(state) {
-    // 1. If a participant is pinned, they will be shown in the LargeVideo (
-    //    regardless of whether they are local or remote).
-    const participants = state['features/base/participants'];
-    let participant = participants.find(p => p.pinned);
+// Customizing for Myntra usecase - Show always local user in large video
+const participants = state['features/base/participants'];
+    let participant = participants.find(p => p.local);
     let id = participant && participant.id;
+    return id
 
-    if (!id) {
-        // 2. No participant is pinned so get the dominant speaker. But the
-        //    local participant won't be displayed in LargeVideo even if she is
-        //    the dominant speaker.
-        participant = participants.find(p => p.dominantSpeaker && !p.local);
-        id = participant && participant.id;
 
-        if (!id) {
-            // 3. There is no dominant speaker so select the remote participant
-            //    who last had visible video.
-            const tracks = state['features/base/tracks'];
-            const videoTrack = _electLastVisibleRemoteVideo(tracks);
+    // // 1. If a participant is pinned, they will be shown in the LargeVideo (
+    // //    regardless of whether they are local or remote).
+    // const participants = state['features/base/participants'];
+    // let participant = participants.find(p => p.pinned);
+    // let id = participant && participant.id;
 
-            id = videoTrack && videoTrack.participantId;
+    // if (!id) {
+    //     // 2. No participant is pinned so get the dominant speaker. But the
+    //     //    local participant won't be displayed in LargeVideo even if she is
+    //     //    the dominant speaker.
+    //     participant = participants.find(p => p.dominantSpeaker && !p.local);
+    //     id = participant && participant.id;
 
-            if (!id) {
-                // 4. It's possible there is no participant with visible video.
-                //    This can happen for a number of reasons:
-                //    - there is only one participant (i.e. the local user),
-                //    - other participants joined with video muted.
-                //    As a last resort, pick the last participant who joined the
-                //    conference (regardless of whether they are local or
-                //    remote).
-                //
-                // HOWEVER: We don't want to show poltergeist or other bot type participants on stage
-                // automatically, because it's misleading (users may think they are already
-                // joined and maybe speaking).
-                for (let i = participants.length; i > 0 && !participant; i--) {
-                    const p = participants[i - 1];
+    //     if (!id) {
+    //         // 3. There is no dominant speaker so select the remote participant
+    //         //    who last had visible video.
+    //         const tracks = state['features/base/tracks'];
+    //         const videoTrack = _electLastVisibleRemoteVideo(tracks);
 
-                    !p.botType && (participant = p);
-                }
+    //         id = videoTrack && videoTrack.participantId;
 
-                id = participant && participant.id;
-            }
-        }
-    }
+    //         if (!id) {
+    //             // 4. It's possible there is no participant with visible video.
+    //             //    This can happen for a number of reasons:
+    //             //    - there is only one participant (i.e. the local user),
+    //             //    - other participants joined with video muted.
+    //             //    As a last resort, pick the last participant who joined the
+    //             //    conference (regardless of whether they are local or
+    //             //    remote).
+    //             //
+    //             // HOWEVER: We don't want to show poltergeist or other bot type participants on stage
+    //             // automatically, because it's misleading (users may think they are already
+    //             // joined and maybe speaking).
+    //             for (let i = participants.length; i > 0 && !participant; i--) {
+    //                 const p = participants[i - 1];
 
-    return id;
+    //                 !p.botType && (participant = p);
+    //             }
+
+    //             id = participant && participant.id;
+    //         }
+    //     }
+    // }
+
+    // return id;
 }

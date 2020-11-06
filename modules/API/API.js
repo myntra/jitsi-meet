@@ -133,7 +133,7 @@ function initCommands() {
         'set-large-video-participant': participantId => {
             logger.debug('Set large video participant command received');
             sendAnalytics(createApiEvent('largevideo.participant.set'));
-            APP.store.dispatch(selectParticipantInLargeVideo(participantId));
+            // APP.store.dispatch(selectParticipantInLargeVideo(participantId));
         },
         'subject': subject => {
             sendAnalytics(createApiEvent('subject.changed'));
