@@ -316,7 +316,7 @@ class Conference extends AbstractConference<Props, *> {
                       * React Components depict the videos of the conference's
                       * participants.
                       */
-                        _shouldDisplayTileView ? undefined : <Filmstrip />
+                        // _shouldDisplayTileView ? undefined : <Filmstrip />
                     }
                 </SafeAreaView>
 
