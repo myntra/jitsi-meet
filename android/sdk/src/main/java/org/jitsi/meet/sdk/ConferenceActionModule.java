@@ -20,9 +20,11 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.os.Build;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.rnimmersive.RNImmersiveModule;
@@ -53,10 +55,10 @@ class ConferenceActionModule extends ReactContextBaseJavaModule {
     public void muteAudioVideo(boolean isMute) {
         _reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("handleVideoMute", null);
+            .emit("handleVideoMute", isMute);
         _reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("handleAudioMute", null);
+            .emit("handleAudioMute", isMute);
     }
 
     @Override

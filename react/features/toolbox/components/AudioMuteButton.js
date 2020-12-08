@@ -106,10 +106,10 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
         return this.props._audioMuted;
     }
 
-    handleAudioMute: () => void;
-    handleAudioMute() {
-        console.log('************ handle audio mute ***********');
-        super._handleClick()
+    handleAudioMute(isMute) {
+        console.log('************ handle audio mute = ' + JSON.stringify(isMute));
+        // super._handleClick()
+        this._setAudioMuted(isMute)
     };
 
     _onKeyboardShortcut: () => void;

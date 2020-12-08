@@ -109,15 +109,19 @@ class Toolbox extends PureComponent<Props> {
                     toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) } /> */}
                 <AudioMuteButton
                     styles = { buttonStyles }
-                    toggledStyles = { toggledButtonStyles }/>
+                    toggledStyles = { toggledButtonStyles }
+                    visible={false}/>
                 <HangupButton
-                    styles = { hangupButtonStyles } />
+                    styles = { hangupButtonStyles }
+                    visible={false}/>
                 <VideoMuteButton
                     styles = { buttonStyles }
-                    toggledStyles = { toggledButtonStyles }/>
-                {/* <OverflowMenuButton
+                    toggledStyles = { toggledButtonStyles }
+                    visible={false}/>
+                <OverflowMenuButton
                     styles = { buttonStylesBorderless }
-                    toggledStyles = { toggledButtonStyles } /> */}
+                    toggledStyles = { toggledButtonStyles }
+                    visible={false} />
             </View>
         );
     }

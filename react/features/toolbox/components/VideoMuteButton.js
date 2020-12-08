@@ -131,10 +131,9 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
         return this.props._videoMuted;
     }
 
-    handleVideoMute: () => void;
-    handleVideoMute() {
-        console.log('************ handle video mute ***********');
-        super._handleClick()
+    handleVideoMute(isMute) {
+        console.log('************ handle video mute = ' + JSON.stringify(isMute));
+        this._setVideoMuted(isMute)
     };
 
     _onKeyboardShortcut: () => void;
