@@ -19,6 +19,10 @@ import { connect } from '../../base/redux';
 import { AbstractVideoMuteButton } from '../../base/toolbox/components';
 import type { AbstractButtonProps } from '../../base/toolbox/components';
 import { getLocalVideoType, isLocalVideoTrackMuted } from '../../base/tracks';
+import { NativeEventEmitter, NativeModules } from 'react-native';
+
+const { ConferenceActionModule } = NativeModules;
+const eventEmitter = new NativeEventEmitter(ConferenceActionModule);
 
 declare var APP: Object;
 
@@ -74,6 +78,7 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
 
         // Bind event handlers so they are only bound once per instance.
         this._onKeyboardShortcut = this._onKeyboardShortcut.bind(this);
+        this.handleVideoMute = this.handleVideoMute.bind(this);
     }
 
     /**
@@ -83,6 +88,7 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
      * @returns {void}
      */
     componentDidMount() {
+        this.subscription = eventEmitter.addListener('handleVideoMute', this.handleVideoMute);
         typeof APP === 'undefined'
             || APP.keyboardshortcut.registerShortcut(
                 'V',
@@ -98,6 +104,7 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
      * @returns {void}
      */
     componentWillUnmount() {
+        this.subscription.remove();
         typeof APP === 'undefined'
             || APP.keyboardshortcut.unregisterShortcut('V');
     }
@@ -123,6 +130,12 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
     _isVideoMuted() {
         return this.props._videoMuted;
     }
+
+    handleVideoMute: () => void;
+    handleVideoMute() {
+        console.log('************ handle video mute ***********');
+        super._handleClick()
+    };
 
     _onKeyboardShortcut: () => void;
 
@@ -151,7 +164,8 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
      * @protected
      * @returns {void}
      */
-    _setVideoMuted(videoMuted: boolean) {
+    _setVideoMuted = (videoMuted: boolean) => {
+        console.log('************ _setVideoMuted ***********')
         sendAnalytics(createToolbarEvent(VIDEO_MUTE, { enable: videoMuted }));
         if (this.props._audioOnly) {
             this.props.dispatch(

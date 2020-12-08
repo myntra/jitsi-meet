@@ -13,6 +13,10 @@ import { AbstractAudioMuteButton } from '../../base/toolbox/components';
 import type { AbstractButtonProps } from '../../base/toolbox/components';
 import { isLocalTrackMuted } from '../../base/tracks';
 import { muteLocal } from '../../remote-video-menu/actions';
+import { NativeEventEmitter, NativeModules } from 'react-native';
+
+const { ConferenceActionModule } = NativeModules;
+const eventEmitter = new NativeEventEmitter(ConferenceActionModule);
 
 declare var APP: Object;
 
@@ -58,6 +62,7 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
 
         // Bind event handlers so they are only bound once per instance.
         this._onKeyboardShortcut = this._onKeyboardShortcut.bind(this);
+        this.handleAudioMute = this.handleAudioMute.bind(this);
     }
 
     /**
@@ -67,6 +72,8 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
      * @returns {void}
      */
     componentDidMount() {
+        this.subscription = eventEmitter.addListener('handleAudioMute', this.handleAudioMute);
+
         typeof APP === 'undefined'
             || APP.keyboardshortcut.registerShortcut(
                 'M',
@@ -82,6 +89,8 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
      * @returns {void}
      */
     componentWillUnmount() {
+        this.subscription.remove();
+
         typeof APP === 'undefined'
             || APP.keyboardshortcut.unregisterShortcut('M');
     }
@@ -96,6 +105,12 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
     _isAudioMuted() {
         return this.props._audioMuted;
     }
+
+    handleAudioMute: () => void;
+    handleAudioMute() {
+        console.log('************ handle audio mute ***********');
+        super._handleClick()
+    };
 
     _onKeyboardShortcut: () => void;
 
@@ -124,6 +139,8 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
      * @returns {void}
      */
     _setAudioMuted(audioMuted: boolean) {
+        console.log('************ _setAudioMuted ***********')
+
         this.props.dispatch(muteLocal(audioMuted));
     }
 

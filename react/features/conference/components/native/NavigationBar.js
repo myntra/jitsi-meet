@@ -70,14 +70,14 @@ class NavigationBar extends Component<Props> {
                 <View
                     pointerEvents = 'box-none'
                     style = { styles.roomNameWrapper }>
-                    {
+                    {/* {
                         this.props._meetingNameEnabled
                         && <Text
                             numberOfLines = { 1 }
                             style = { styles.roomName }>
                             { this.props._meetingName }
                         </Text>
-                    }
+                    } */}
                     {
                         this.props._conferenceTimerEnabled && <ConferenceTimer />
                     }

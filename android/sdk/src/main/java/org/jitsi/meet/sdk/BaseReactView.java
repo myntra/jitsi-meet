@@ -25,7 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.ReactRootView;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.rnimmersive.RNImmersiveModule;
 
 import java.lang.reflect.Method;
@@ -217,5 +219,11 @@ public abstract class BaseReactView<ListenerT>
      */
     public void setListener(ListenerT listener) {
         this.listener = listener;
+    }
+
+    public void muteAudioVideo(boolean isMute) {
+        ConferenceActionModule conferenceAction = ConferenceActionModule.getInstance();
+        conferenceAction.getNameWithDate("8Dec 9:45AM");
+        conferenceAction.muteAudioVideo(isMute);
     }
 }

@@ -293,7 +293,7 @@ class Conference extends AbstractConference<Props, *> {
                             applyGradientStretching ? styles.gradientStretchBottom : undefined
                         ] } />}
 
-                    <Labels />
+                    {/* <Labels /> */}
 
                     <Captions onPress = { this._onClick } />
 
@@ -301,7 +301,7 @@ class Conference extends AbstractConference<Props, *> {
                         <DisplayNameLabel participantId = { _largeVideoParticipantId } />
                     </Container> }
 
-                    <LonelyMeetingExperience />
+                    {/* <LonelyMeetingExperience /> */}
 
                     {/*
                       * The Toolbox is in a stacking layer below the Filmstrip.
@@ -324,15 +324,15 @@ class Conference extends AbstractConference<Props, *> {
                     pointerEvents = 'box-none'
                     style = { styles.navBarSafeView }>
                     <NavigationBar />
-                    { this._renderNotificationsContainer() }
-                    <KnockingParticipantList />
+                    {/* { this._renderNotificationsContainer() }
+                    <KnockingParticipantList /> */}
                 </SafeAreaView>
 
                 <TestConnectionInfo />
 
-                { this._renderConferenceNotification() }
+                {/* { this._renderConferenceNotification() } */}
 
-                { this._renderConferenceModals() }
+                {/* { this._renderConferenceModals() } */}
             </>
         );
     }
