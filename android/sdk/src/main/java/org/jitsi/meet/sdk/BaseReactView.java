@@ -223,7 +223,11 @@ public abstract class BaseReactView<ListenerT>
 
     public void muteAudioVideo(boolean isMute) {
         ConferenceActionModule conferenceAction = ConferenceActionModule.getInstance();
-        conferenceAction.getNameWithDate("8Dec 9:45AM");
         conferenceAction.muteAudioVideo(isMute);
+    }
+
+    public void toggleCamera() {
+        ConferenceActionModule conferenceAction = ConferenceActionModule.getInstance();
+        conferenceAction.toggleCamera();
     }
 }

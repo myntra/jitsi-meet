@@ -61,6 +61,12 @@ class ConferenceActionModule extends ReactContextBaseJavaModule {
             .emit("handleAudioMute", isMute);
     }
 
+    public void toggleCamera() {
+        _reactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("handleToggleCamera", null);
+    }
+
     @Override
     public String getName() {
         return NAME;

@@ -78,9 +78,9 @@ class NavigationBar extends Component<Props> {
                             { this.props._meetingName }
                         </Text>
                     } */}
-                    {
+                    {/* {
                         this.props._conferenceTimerEnabled && <ConferenceTimer />
-                    }
+                    } */}
                 </View>
             </View>
         ];
