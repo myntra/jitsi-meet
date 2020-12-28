@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
 
 import org.jitsi.meet.sdk.BaseReactView;
@@ -52,6 +53,11 @@ public class IncomingCallView
     @Override
     protected void onExternalAPIEvent(String name, ReadableMap data) {
         onExternalAPIEvent(LISTENER_METHODS, name, data);
+    }
+
+    @Override
+    protected void onJitsiAPIRequest(String method, String url, String requestBody, ReadableMap requestHeaders, Promise promise) {
+        // Not required
     }
 
     /**

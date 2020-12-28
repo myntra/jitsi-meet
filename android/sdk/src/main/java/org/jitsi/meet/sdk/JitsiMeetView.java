@@ -18,15 +18,19 @@ package org.jitsi.meet.sdk;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
 
 import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 public class JitsiMeetView extends BaseReactView<JitsiMeetViewListener>
@@ -199,6 +203,12 @@ public class JitsiMeetView extends BaseReactView<JitsiMeetViewListener>
     @Override
     protected void onExternalAPIEvent(String name, ReadableMap data) {
         onExternalAPIEvent(LISTENER_METHODS, name, data);
+    }
+
+    @Override
+    protected void onJitsiAPIRequest(String method, String url, String requestBody, ReadableMap requestHeaders, Promise promise) {
+        // Not required
+        Log.i("JitsiMeetView", "onJitsiAPIRequest");
     }
 
     @Override

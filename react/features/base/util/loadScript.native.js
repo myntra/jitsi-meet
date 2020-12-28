@@ -1,5 +1,5 @@
 // @flow
-
+import { get } from './APIRequest';
 /**
  * Default timeout for loading scripts.
  */
@@ -38,19 +38,23 @@ export async function loadScript(
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const timer = setTimeout(() => {
-        controller.abort();
-    }, timeout);
-
-    const response = await fetch(url, { signal });
-
+    // Swetank - Modified for Mlive
+    // const timer = setTimeout(() => {
+    //     controller.abort();
+    // }, timeout);
+    // const headers = { 'user-agent': 'M-LiveAndroid/1.0' }
+    // fetch(url, { headers, signal })
+    // Existing call
+    // const response = await fetch(url, { signal });
+    // New call
+    const response = await get(url)
     // If the timeout hits the above will raise AbortError.
 
-    clearTimeout(timer);
+    // clearTimeout(timer);
 
     switch (response.status) {
     case 200: {
-        const txt = await response.text();
+        const txt = await response.body; // response.text()
 
         if (skipEval) {
             return txt;

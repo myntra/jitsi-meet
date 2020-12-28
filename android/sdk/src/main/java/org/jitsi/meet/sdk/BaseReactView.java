@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.ReactRootView;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -230,4 +231,6 @@ public abstract class BaseReactView<ListenerT>
         ConferenceActionModule conferenceAction = ConferenceActionModule.getInstance();
         conferenceAction.toggleCamera();
     }
+
+    protected abstract void onJitsiAPIRequest(String method, String url, final String requestBody, final ReadableMap requestHeaders, final Promise promise);
 }
