@@ -32,6 +32,18 @@ function Request(method, url) {
 	this._fields = {};
 }
 
+Request.prototype.xmlend = (self) => {
+    const httpClient = NativeModules.APIRequest;
+    if (isEmpty(self._fields)) {
+        return httpClient.xmlRequest(
+			self.method,
+			self.url,
+			self._data,
+            self._header,
+		);
+	}
+};
+
 Request.prototype.end = (self) => {
     const httpClient = NativeModules.APIRequest;
     if (isEmpty(self._fields)) {

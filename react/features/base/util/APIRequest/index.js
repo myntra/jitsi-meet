@@ -38,6 +38,14 @@ export function put(url, data) {
 	return req('PUT', url, data);
 }
 
+export function xmlRequest(method, url, data, header) {
+    // eslint-disable-next-line no-shadow
+    const req = new Request(method, url);
+	data && req.send(req, data);
+    header && req.set(req, header);
+	return req.xmlend(req).then((res) => new Response(res, req));
+}
+
 /**
  * Upload image to server 'image/jpg'
  * @param {*} url

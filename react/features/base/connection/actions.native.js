@@ -20,6 +20,7 @@ import {
 } from './actionTypes';
 import { JITSI_CONNECTION_URL_KEY } from './constants';
 import logger from './logger';
+import { get, xmlRequest } from '../util/APIRequest';
 
 /**
  * The error structure passed to the {@link connectionFailed} action.
@@ -81,7 +82,7 @@ export function connect(id: ?string, password: ?string) {
         const options = _constructOptions(state);
         const { locationURL } = state['features/base/connection'];
         const { jwt } = state['features/base/jwt'];
-        const connection = new JitsiMeetJS.JitsiConnection(options.appId, jwt, options);
+        const connection = new JitsiMeetJS.JitsiConnection(options.appId, jwt, options, myntraHttpClient);
 
         connection[JITSI_CONNECTION_URL_KEY] = locationURL;
 
@@ -112,6 +113,16 @@ export function connect(id: ?string, password: ?string) {
         function _onConnectionDisconnected() {
             unsubscribe();
             dispatch(connectionDisconnected(connection));
+        }
+
+        async function myntraHttpClient(req){
+            const response = await xmlRequest(req.xhr._method, req.xhr._url, req.data, req.xhr._headers)
+            req.xhr.responseURL = req.xhr._url
+            req.xhr.readyState = 4
+            req.xhr.status = response.status
+            req.xhr.responseHeaders = response.header
+            req.xhr._response = response.body
+            req.func(req)
         }
 
         /**

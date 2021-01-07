@@ -32,4 +32,13 @@ public class APIRequest extends ReactContextBaseJavaModule {
             view.onJitsiAPIRequest(method, url, requestBody, requestHeaders, promise);
         }
     }
+
+    @ReactMethod
+    public void xmlRequest(String method, String url, final String requestBody, final ReadableMap requestHeaders, final Promise promise) {
+        // Delegate to MLive
+        ArrayList<BaseReactView> views = BaseReactView.getViews();
+        for (BaseReactView view : views) {
+            view.onJitsiAPIRequest(method, url, requestBody, requestHeaders, promise);
+        }
+    }
 }
