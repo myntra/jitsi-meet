@@ -92,7 +92,7 @@ function _setFullScreen(fullScreen: boolean) {
     // XXX The React Native module Immersive is only implemented on Android and
     // throws on other platforms.
     if (Platform.OS === 'android') {
-        fullScreen ? Immersive.on() : Immersive.off();
+        // fullScreen ? Immersive.on() : Immersive.off();
     }
 }
 
