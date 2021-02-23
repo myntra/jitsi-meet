@@ -14,6 +14,7 @@ import java.util.ArrayList;
 @ReactModule(name="APIRequest")
 public class APIRequest extends ReactContextBaseJavaModule {
     public static final String NAME = "APIRequest";
+    public ConferenceApiListener conferenceApiListener = null;
 
     public APIRequest(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -27,18 +28,12 @@ public class APIRequest extends ReactContextBaseJavaModule {
     @ReactMethod
     public void request(String method, String url, final String requestBody, final ReadableMap requestHeaders, final Promise promise) {
         // Delegate to MLive
-        ArrayList<BaseReactView> views = BaseReactView.getViews();
-        for (BaseReactView view : views) {
-            view.onJitsiAPIRequest(method, url, requestBody, requestHeaders, promise);
-        }
+        conferenceApiListener.onPing(method, url, requestBody, requestHeaders, promise);
     }
 
     @ReactMethod
     public void xmlRequest(String method, String url, final String requestBody, final ReadableMap requestHeaders, final Promise promise) {
         // Delegate to MLive
-        ArrayList<BaseReactView> views = BaseReactView.getViews();
-        for (BaseReactView view : views) {
-            view.onJitsiAPIRequest(method, url, requestBody, requestHeaders, promise);
-        }
+        conferenceApiListener.onPing(method, url, requestBody, requestHeaders, promise);
     }
 }

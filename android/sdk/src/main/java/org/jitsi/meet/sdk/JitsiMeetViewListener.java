@@ -16,6 +16,9 @@
 
 package org.jitsi.meet.sdk;
 
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReadableMap;
+
 import java.util.Map;
 
 /**

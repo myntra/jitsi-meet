@@ -207,6 +207,11 @@ public class JitsiMeetView extends BaseReactView<JitsiMeetViewListener>
 
     @Override
     protected void onJitsiAPIRequest(String method, String url, String requestBody, ReadableMap requestHeaders, Promise promise) {
+        //
+    }
+
+    @Override
+    protected void onJitsiAPIRequest() {
         // Not required
         Log.i("JitsiMeetView", "onJitsiAPIRequest");
     }

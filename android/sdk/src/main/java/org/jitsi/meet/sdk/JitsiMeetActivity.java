@@ -24,6 +24,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.modules.core.PermissionListener;
 
 import org.jitsi.meet.sdk.log.JitsiMeetLogger;
@@ -226,5 +228,10 @@ public class JitsiMeetActivity extends FragmentActivity
     @Override
     public void onConferenceWillJoin(Map<String, Object> data) {
         JitsiMeetLogger.i("Conference will join: " + data);
+    }
+
+    @Override
+    public void onPing(String method, String url, String requestBody, ReadableMap requestHeaders, Promise promise) {
+        //
     }
 }
