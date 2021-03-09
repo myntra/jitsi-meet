@@ -5,7 +5,7 @@
  * @type {object}
  */
 export const VIDEO_QUALITY_LEVELS = {
-    HIGH: 720,
+    HIGH: 2160,
     STANDARD: 360,
     LOW: 180
 };

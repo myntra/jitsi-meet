@@ -86,8 +86,9 @@ class ReactInstanceManagerHolder {
             .createAudioDeviceModule();
         options.setAudioDeviceModule(adm);
 
-        options.setVideoDecoderFactory(new SoftwareVideoDecoderFactory());
-        options.setVideoEncoderFactory(new SoftwareVideoEncoderFactory());
+        // Disable Software encoding and decoding for better performace
+        // options.setVideoDecoderFactory(new SoftwareVideoDecoderFactory());
+        // options.setVideoEncoderFactory(new SoftwareVideoEncoderFactory());
 
         nativeModules.add(new WebRTCModule(reactContext, options));
 
